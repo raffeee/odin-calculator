@@ -14,7 +14,7 @@ function divide(a, b) {
   return a / b;
 }
 
-function operate(a, optr, b) {
+function operate(optr, a, b) {
   if (optr === '+') return add(a, b);
   else if (optr === '-') return subtract(a, b);
   else if (optr === '*') return multiply(a, b);
