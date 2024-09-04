@@ -1,3 +1,12 @@
+function change_display(value) {
+  const display = document.querySelector("#display")
+  if (display.textContent == 0) {
+    display.textContent = value
+  } else {
+    display.textContent += value
+  }
+}
+
 function add(a, b) {
   return a + b;
 }
@@ -25,3 +34,4 @@ function operate(optr, a, b) {
 let num1 = 0
 let num2 = 0
 let operator = ''
+let curr = 0
