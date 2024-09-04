@@ -23,6 +23,10 @@ function divide(a, b) {
   return a / b;
 }
 
+function percent(a) {
+  return a / 100;
+}
+
 function operate(optr, a, b) {
   if (optr === '+') return add(a, b);
   else if (optr === '-') return subtract(a, b);
