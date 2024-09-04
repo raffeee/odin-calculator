@@ -60,6 +60,9 @@ let evaluate = false;
 const numbers = document.querySelectorAll(".number")
 numbers.forEach((number) => {
   number.addEventListener("click", () => {
+    if (last_action == '=') {
+      reset_calc()
+    }
     change_display(number.id)
   });
 });
