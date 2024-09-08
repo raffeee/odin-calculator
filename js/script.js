@@ -110,7 +110,8 @@ operators.forEach((operator) => {
 });
 
 document.querySelector("#equals").addEventListener("click", () => {
-  // TODO: Allow or reject multiple equals operations?
+  // TODO: Only allow one evaluation (like digital calculators)
+  // TODO: Rework logic below to follow operators?
   if (num1) {
     // Evaluate current pair of values before doing another calculation
     if (last_action != '=') {
