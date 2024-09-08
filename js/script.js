@@ -3,7 +3,9 @@ function change_display(value) {
   if (evaluate === true) {
     display.textContent = value;
     evaluate = false;
-  } else if (display.textContent == 0 | res === true) {
+  } else if (display.textContent === '0' && value === '.') {
+    display.textContent += value;
+  } else if (display.textContent === '0' | res === true) {
     display.textContent = value;
     res = false;
   } else {
@@ -59,6 +61,7 @@ function reset_calc() {
   change_display(0);
   res = false;
   evaluate = false;
+  lock_decimal = false;
 }
 
 let num1 = 0;
@@ -67,15 +70,22 @@ let optr = '';
 let last_action = '';
 let res = false;
 let evaluate = false;
+let lock_decimal = false;
 
 const numbers = document.querySelectorAll(".number")
 numbers.forEach((number) => {
   number.addEventListener("click", () => {
-    if (last_action == '=') {
-      reset_calc()
-    }
-    change_display(number.id)
+    if (last_action == '=') { reset_calc() }
+    change_display(number.textContent)
   });
+});
+
+document.querySelector("#decimal").addEventListener("click", () => {
+  if (lock_decimal) { return null }
+  else {
+    lock_decimal = true;
+    change_display(decimal.textContent)
+  }
 });
 
 const operators = document.querySelectorAll(".operator")
@@ -86,14 +96,15 @@ operators.forEach((operator) => {
     res = true;
     if (num1) {
       if (last_action != '=') {
-        num2 = parseInt(document.querySelector("#display").textContent);
+        num2 = parseFloat(document.querySelector("#display").textContent);
       }
       evaluate = true;
       result = operate(optr, num1, num2);
       change_display(result);
       num1 = result;
     } else {
-      num1 = parseInt(document.querySelector("#display").textContent);
+      num1 = parseFloat(document.querySelector("#display").textContent);
+      lock_decimal = false;
     }
   });
 });
@@ -102,10 +113,10 @@ document.querySelector("#equals").addEventListener("click", () => {
   if (num1) {
     // Evaluate current pair of values before doing another calculation
     if (last_action != '=') {
-      num2 = parseInt(document.querySelector("#display").textContent);
+      num2 = parseFloat(document.querySelector("#display").textContent);
     }
   } else {
-    num1 = parseInt(document.querySelector("#display").textContent);
+    num1 = parseFloat(document.querySelector("#display").textContent);
   }
   evaluate = true;
   result = operate(optr, num1, num2);
