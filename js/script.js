@@ -37,11 +37,17 @@ function round_result(a) {
 }
 
 function operate(optr, a, b) {
-  if (optr === '+') return add(a, b);
-  else if (optr === '-') return subtract(a, b);
-  else if (optr === '*') return multiply(a, b);
-  else if (optr === '/') return divide(a, b);
-  else return 0;
+  result = 0;
+  if (optr === '+') { result = add(a, b) };
+  else if (optr === '-') { result = subtract(a, b) };
+  else if (optr === '*') { result = multiply(a, b) };
+  else if (optr === '/') { result = divide(a, b) };
+  
+  if (toString(result).length > 12) {
+    result = round_result(result);
+  }
+
+  return result
 }
 
 function reset_calc() {
@@ -94,6 +100,7 @@ operators.forEach((operator) => {
 
 document.querySelector("#equals").addEventListener("click", () => {
   if (num1) {
+    // Evaluate current pair of values before doing another calculation
     if (last_action != '=') {
       num2 = parseInt(document.querySelector("#display").textContent);
     }
@@ -102,9 +109,6 @@ document.querySelector("#equals").addEventListener("click", () => {
   }
   evaluate = true;
   result = operate(optr, num1, num2);
-  if (toString(result).length > 12) {
-    result = round_result(result);
-  }
   change_display(result);
   num1 = result;
   last_action = '=';
