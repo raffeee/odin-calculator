@@ -1,9 +1,9 @@
 function change_display(value) {
   const display = document.querySelector("#display");
-  if (evaluate == true) {
+  if (evaluate === true) {
     display.textContent = value;
     evaluate = false;
-  } else if (display.textContent == 0 | res == true) {
+  } else if (display.textContent === 0 | res === true) {
     display.textContent = value;
     res = false;
   } else {
