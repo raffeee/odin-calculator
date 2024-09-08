@@ -76,6 +76,10 @@ button {
   font-size: 2em;
 }
 
+.operator {
+  background-color: orange;
+}
+
 #equals {
   flex-grow: 2;
 }
