@@ -31,6 +31,11 @@ function percent(a) {
   return a / 100;
 }
 
+function round_result(a) {
+  // 1000000000000 is 13 chars, the max length that fits the display div
+  return Math.round((a + Number.EPSILON) * 1000000000000) / 1000000000000
+}
+
 function operate(optr, a, b) {
   if (optr === '+') return add(a, b);
   else if (optr === '-') return subtract(a, b);
@@ -98,8 +103,7 @@ document.querySelector("#equals").addEventListener("click", () => {
   evaluate = true;
   result = operate(optr, num1, num2);
   if (toString(result).length > 12) {
-    // 1000000000000 is 13 chars, the max length that fits the display div
-    result = Math.round((result + Number.EPSILON) * 1000000000000) / 1000000000000
+    result = round_result(result);
   }
   change_display(result);
   num1 = result;
