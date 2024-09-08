@@ -92,24 +92,25 @@ const operators = document.querySelectorAll(".operator")
 operators.forEach((operator) => {
   operator.addEventListener("click", () => {
     optr = operator.textContent;
-    last_action = optr;
     res = true;
-    if (num1) {
-      if (last_action != '=') {
-        num2 = parseFloat(document.querySelector("#display").textContent);
-      }
+    if (optr === last_action || last_action === '=') {}
+    else if (num1 && num2) {
       evaluate = true;
       result = operate(optr, num1, num2);
       change_display(result);
       num1 = result;
-    } else {
+    } else if (!num1) {
       num1 = parseFloat(document.querySelector("#display").textContent);
       lock_decimal = false;
+    } else if (!num2) {
+      num2 = parseFloat(document.querySelector("#display").textContent);
     }
+    last_action = optr;
   });
 });
 
 document.querySelector("#equals").addEventListener("click", () => {
+  // TODO: Allow or reject multiple equals operations?
   if (num1) {
     // Evaluate current pair of values before doing another calculation
     if (last_action != '=') {
