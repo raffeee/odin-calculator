@@ -3,7 +3,7 @@ function change_display(value) {
   if (evaluate === true) {
     display.textContent = value;
     evaluate = false;
-  } else if (display.textContent === 0 | res === true) {
+  } else if (display.textContent == 0 | res === true) {
     display.textContent = value;
     res = false;
   } else {
@@ -38,12 +38,12 @@ function round_result(a) {
 
 function operate(optr, a, b) {
   result = 0;
-  if (optr === '+') { result = add(a, b) };
-  else if (optr === '-') { result = subtract(a, b) };
-  else if (optr === '*') { result = multiply(a, b) };
-  else if (optr === '/') { result = divide(a, b) };
+  if (optr === '+') { result = add(a, b) }
+  else if (optr === '-') { result = subtract(a, b) }
+  else if (optr === '*') { result = multiply(a, b) }
+  else if (optr === '/') { result = divide(a, b) }
   
-  if (toString(result).length > 12) {
+  if (typeof(result) === 'number' && toString(result).length > 12) {
     result = round_result(result);
   }
 
