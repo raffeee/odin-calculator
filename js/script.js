@@ -1,7 +1,6 @@
 function change_display(value) {
   if (res) {
     display.textContent = value;
-    lock_decimal = false;
     res = false;
   } else if (evaluate) {
       display.textContent = value;
@@ -65,7 +64,6 @@ function reset_calc() {
   change_display(0);
   res = false;
   evaluate = false;
-  lock_decimal = false;
 }
 
 const display = document.querySelector("#display");
@@ -78,7 +76,6 @@ let output = 0;
 let last_input = '';
 let res = false;
 let evaluate = false;
-let lock_decimal = false;
 
 const numbers = document.querySelectorAll(".number")
 numbers.forEach((number) => {
@@ -90,9 +87,8 @@ numbers.forEach((number) => {
 
 
 document.querySelector("#decimal").addEventListener("click", () => {
-  if (lock_decimal) { return null }
+  if (display.textContent.includes('.')) { return null }
   else {
-    lock_decimal = true;
     change_display(decimal.textContent)
   }
 });
