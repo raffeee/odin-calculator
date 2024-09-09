@@ -1,16 +1,21 @@
 function change_display(value) {
-  if (evaluate === true) {
+  if (res) {
     display.textContent = value;
-    evaluate = false;
-  } else if (display.textContent === '0' && value === '.') {
-    if (display.textContent.length > 12) { }    // Prevent overflow
-    else { display.textContent += value; }
-  } else if (display.textContent === '0' | res === true) {
-    display.textContent = value;
+    lock_decimal = false;
     res = false;
-  } else {
-    if (display.textContent.length > 12) { }    // Prevent overflow
-    else display.textContent += value;
+  } else if (display.textContent.length < 13) {
+    if (evaluate) {
+      display.textContent = value;
+      evaluate = false;
+    } else if (display.textContent === '0') {
+      if (value === '.') {
+        display.textContent += value;
+      } else {
+        display.textContent = value;
+      }
+    } else {
+      display.textContent += value;
+    }
   }
 }
 
