@@ -25,7 +25,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-  return a / b === Infinity ? "#DIV/0!" : a / b;
+  return !isFinite(a / b) || isNaN(a / b) ? "#DIV/0!" : a / b;
 }
 
 function percent(a) {
