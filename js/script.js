@@ -3,12 +3,14 @@ function change_display(value) {
     display.textContent = value;
     evaluate = false;
   } else if (display.textContent === '0' && value === '.') {
-    display.textContent += value;
+    if (display.textContent.length > 12) { }    // Prevent overflow
+    else { display.textContent += value; }
   } else if (display.textContent === '0' | res === true) {
     display.textContent = value;
     res = false;
   } else {
-    display.textContent += value;
+    if (display.textContent.length > 12) { }    // Prevent overflow
+    else display.textContent += value;
   }
 }
 
@@ -44,10 +46,6 @@ function operate(optr, a, b) {
   else if (optr === '-') { result = subtract(a, b) }
   else if (optr === '*') { result = multiply(a, b) }
   else if (optr === '/') { result = divide(a, b) }
-  
-  if (typeof(result) === 'number' && toString(result).length > 12) {
-    result = round_result(result);
-  }
 
   return result
 }
