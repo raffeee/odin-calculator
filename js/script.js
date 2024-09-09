@@ -3,19 +3,17 @@ function change_display(value) {
     display.textContent = value;
     lock_decimal = false;
     res = false;
-  } else if (display.textContent.length < 13) {
-    if (evaluate) {
+  } else if (evaluate) {
       display.textContent = value;
       evaluate = false;
-    } else if (display.textContent === '0') {
-      if (value === '.') {
-        display.textContent += value;
-      } else {
-        display.textContent = value;
-      }
-    } else {
+  } else if (display.textContent === '0') {
+    if (value === '.') {
       display.textContent += value;
+    } else {
+      display.textContent = value;
     }
+  } else {
+    display.textContent += value;
   }
 }
 
@@ -39,9 +37,9 @@ function percent(a) {
   return a / 100;
 }
 
-function round_result(a) {
-  // 1000000000000 is 13 chars, the max length that fits the display div
-  return Math.round((a + Number.EPSILON) * 1000000000000) / 1000000000000
+function round(a, places) {
+  const multiplier = Math.pow(10, places);
+  return Math.round(a * multiplier) / multiplier;
 }
 
 function operate(optr, a, b) {
@@ -51,7 +49,9 @@ function operate(optr, a, b) {
   else if (optr === '-') { result = subtract(a, b) }
   else if (optr === '*') { result = multiply(a, b) }
   else if (optr === '/') { result = divide(a, b) }
-
+  if (toString(result).length > 12) {
+    result = round(result, 12)
+  }
   return result
 }
 
