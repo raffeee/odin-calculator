@@ -1,4 +1,5 @@
 function change_display(value) {
+  // TODO: prepend 0 if value is decimal and res is true
   if (res) {
     display.textContent = value;
     res = false;
@@ -93,7 +94,6 @@ document.querySelector("#decimal").addEventListener("click", () => {
   }
 });
 
-// TODO: Rework operators and evaluation logic
 const operators = document.querySelectorAll(".operator")
 operators.forEach((operator) => {
   operator.addEventListener("click", () => {
