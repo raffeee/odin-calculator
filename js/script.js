@@ -98,42 +98,50 @@ document.querySelector("#decimal").addEventListener("click", () => {
 const operators = document.querySelectorAll(".operator")
 operators.forEach((operator) => {
   operator.addEventListener("click", () => {
-    // if (calc_optrs.indexOf(last_input) > -1) {
-    //     // Do not perform an evaluation when operations are pressed consecutively
-    // } else if (last_input == 'equals') {
-    //   num1 = output
-    // } else {
+    if (calc_optrs.indexOf(last_input) > -1) {
+        // Do not perform an evaluation when operations are pressed consecutively
+    } else if (last_input == 'equals') {
+      num1 = output
+    } else {
       if (!num1) {
         num1 = parseFloat(display.textContent);
       } else if (last_input == 'equals' || calc_optrs.indexOf(last_input) > -1) {
         num2 = 0
+        evaluate = true;
       } else {
         num2 = parseFloat(display.textContent);
+        evaluate = true;
       }
-
-      evaluate = true;
-      console.log(`evaluating ${num1} ${optr} ${num2}`)
+    }
+    if (evaluate) {
       output = operate(optr, num1, num2);
       change_display(output)
       num1 = output
-    //}
+    }
     optr = operator.textContent
     res = true;
   });
 });
 
 document.querySelector("#equals").addEventListener("click", () => {
-  if (!num1) {
+  if (last_input == 'equals') {
+      // Do not repeat evaluations on multiple equals clicks
+  } else if (!num1) {
     num1 = parseFloat(display.textContent);
-  } else if (last_input != 'equals' && calc_optrs.indexOf(last_input) == -1) {
+  } else if (calc_optrs.indexOf(last_input) > -1) {
     num2 = parseFloat(display.textContent);
+    evaluate = true;
+  } else {
+    num2 = parseFloat(display.textContent);
+    evaluate = true;
   }
-  evaluate = true;
-  console.log(`evaluating ${num1} ${optr} ${num2}`)
-  output = operate(optr, num1, num2);
-  change_display(output)
-  num1 = output
-  num2 = 0
+
+  if (evaluate) {
+    output = operate(optr, num1, num2);
+    change_display(output)
+    num1 = output
+    num2 = 0
+  }
 });
 
 // Convert to positive/negative value
@@ -156,8 +164,6 @@ buttons.forEach((button) => {
     // Avoid duplicate reassignments
     if (last_input !== button.id) {
       last_input = button.id
-      console.log(`last input: ${last_input}`)
     }
-    console.log(`num1: ${num1} | num2: ${num2}`)
   })
 });
